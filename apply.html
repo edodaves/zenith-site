@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Apply · Zenith Council</title>
+<meta name="description" content="Apply for membership of Zenith Council, a private members club for founders.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Manrope:wght@300;400;500&display=swap">
+<style>
+:root{
+  --bg:#0a0a09;
+  --bg-2:#141311;
+  --fg:#ece6db;
+  --soft:#b4ada1;
+  --muted:#7a746a;
+  --line:rgba(236,230,219,.14);
+  --accent:#d4b06a;
+  --err:#e39b87;
+  --serif:"Newsreader","Iowan Old Style",Georgia,serif;
+  --sans:"Manrope","Helvetica Neue",Arial,sans-serif;
+  --gl:max(20px, env(safe-area-inset-left,0px));
+  --gr:max(20px, env(safe-area-inset-right,0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg)}
+body{color:var(--fg);font-family:var(--sans);font-weight:300;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--fg);color:var(--bg)}
+:focus-visible{outline:1px solid var(--fg);outline-offset:4px}
+h1,h2{font-family:var(--serif);font-weight:400;margin:0;letter-spacing:-.02em;text-wrap:balance}
+h1:focus,h2:focus{outline:none}
+p{margin:0}
+em{font-style:italic}
+[hidden]{display:none!important}
+
+/* Top bar + progress */
+.top{position:fixed;inset:0 0 auto;z-index:10;display:flex;align-items:center;justify-content:space-between;height:64px;padding:env(safe-area-inset-top,0px) var(--gr) 0 var(--gl);background:rgba(10,10,9,.86);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.logo{font-family:var(--serif);font-size:15px;letter-spacing:.34em}
+.count{font-size:12px;color:var(--muted);letter-spacing:.04em}
+
+.bar{position:fixed;left:0;right:0;top:calc(64px + env(safe-area-inset-top,0px));height:1px;background:var(--line);z-index:10}
+.bar i{display:block;height:100%;background:var(--accent);transform:scaleX(.5);transform-origin:left;transition:transform .6s cubic-bezier(.4,0,.2,1)}
+main{max-width:640px;margin:0 auto;padding:calc(132px + env(safe-area-inset-top,0px)) var(--gr) 120px var(--gl)}
+.step{display:none}
+.step.on{display:block;animation:rise .55s cubic-bezier(.2,.7,.2,1)}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.k{display:block;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:clamp(40px,6vw,60px);line-height:1.06;margin-top:16px}
+h2{font-size:clamp(32px,4.4vw,44px);line-height:1.1;margin-top:14px}
+.lead{color:var(--soft);margin-top:20px;max-width:46ch}
+
+
+.k.sec{margin-top:64px;padding-top:22px;border-top:1px solid var(--line)}
+.notice{color:var(--muted);font-size:12.5px;margin-top:44px;max-width:52ch}
+
+/* Fields */
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend{padding:0}
+.f{margin-top:46px}
+.f > label,.f > legend{display:block;font-family:var(--serif);font-size:21px;line-height:1.35;letter-spacing:-.01em}
+.opt-tag{font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-left:8px;vertical-align:2px}
+.hint{color:var(--muted);font-size:13px;margin-top:6px}
+input[type=text],input[type=email],input[type=tel],input[type=url],textarea{
+  display:block;width:100%;margin-top:14px;padding:10px 0 12px;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;
+  color:var(--fg);font-family:var(--sans);font-weight:300;font-size:16px;line-height:1.6;transition:border-color .3s}
+input::placeholder,textarea::placeholder{color:#4f4b45}
+input:focus,textarea:focus{outline:none;border-bottom-color:var(--fg)}
+textarea{resize:none;min-height:46px;overflow:hidden}
+
+.opts{display:grid;gap:10px;margin-top:18px}
+.opt{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--line);border-radius:6px;cursor:pointer;transition:border-color .25s,background-color .25s}
+.opt:hover{border-color:rgba(236,230,219,.32)}
+.opt:has(input:checked){border-color:var(--fg);background:rgba(236,230,219,.04)}
+.opt:has(input:focus-visible){outline:1px solid var(--fg);outline-offset:3px}
+.opt input{appearance:none;-webkit-appearance:none;flex:none;width:16px;height:16px;margin:0;border:1px solid var(--muted);border-radius:50%;display:grid;place-content:center;transition:border-color .25s}
+.opt input[type=checkbox]{border-radius:3px}
+.opt input:focus{outline:none}
+.opt input:checked{border-color:var(--fg)}
+.opt input[type=radio]:checked::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--fg)}
+.opt input[type=checkbox]:checked{background:var(--fg)}
+.opt input[type=checkbox]:checked::before{content:"";width:8px;height:4px;border-left:1.5px solid var(--bg);border-bottom:1.5px solid var(--bg);transform:translateY(-1px) rotate(-45deg)}
+.opt span{font-size:14.5px}
+.opt small{color:var(--muted);font-size:12.5px;margin-left:6px}
+.tier{margin-left:auto;font-family:var(--serif);font-style:italic;font-size:16px;background-image:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:2px}
+.tier.bronze{--metal:linear-gradient(180deg,#f0c8a0,#c08a5a 55%,#7a4f2e)}
+.tier.silver{--metal:linear-gradient(180deg,#f6f5f2,#bfc1c4 55%,#76797e)}
+.tier.gold{--metal:linear-gradient(180deg,#fbe8ae,#d6ac52 55%,#8f6922)}
+.consent{align-items:flex-start}
+.consent input{margin-top:4px}
+.consent span{font-size:13.5px;color:var(--soft)}
+
+.err{display:none;color:var(--err);font-size:12.5px;margin-top:8px}
+.bad .err{display:block}
+.bad input[type=text],.bad input[type=email],.bad input[type=tel],.bad textarea{border-bottom-color:var(--err)}
+.bad .opt{border-color:rgba(227,155,135,.45)}
+
+/* Buttons */
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:28px}
+.nav.solo{justify-content:flex-start}
+.btn{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 26px;border:0;border-radius:999px;background:var(--fg);color:var(--bg);font-family:var(--sans);font-size:13.5px;font-weight:500;cursor:pointer;transition:opacity .3s}
+.btn:hover{opacity:.88}
+.btn:disabled{opacity:.5;cursor:default}
+.btn svg{width:11px;height:11px}
+.back{background:none;border:0;padding:8px 0;color:var(--muted);font-family:var(--sans);font-size:13.5px;cursor:pointer;transition:color .3s}
+.back:hover{color:var(--fg)}
+.send-err{color:var(--err);font-size:13px;margin-top:20px}
+.send-err a{border-bottom:1px solid currentColor}
+
+.tlink{display:inline-flex;align-items:center;gap:10px;margin-top:44px;font-size:14px;padding-bottom:5px;border-bottom:1px solid rgba(236,230,219,.4);transition:border-color .3s,gap .3s}
+.tlink:hover{border-color:var(--fg);gap:14px}
+.tlink svg{width:11px;height:11px}
+
+.hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+
+@media (max-width:560px){
+  .f{margin-top:40px}
+  .f > label,.f > legend{font-size:19.5px}
+}
+@media (prefers-reduced-motion:reduce){
+  .step.on{animation:none}
+  .bar i{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="logo" href="./" aria-label="Zenith Council home">ZENITH</a>
+  <span class="count" id="count" aria-live="polite">Step 1 of 2</span>
+</header>
+<div class="bar" aria-hidden="true"><i id="bar"></i></div>
+
+<main>
+<form id="app" novalidate>
+  <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
+
+  <section class="step on" data-step="1">
+    <span class="k">Membership application</span>
+    <h1 tabindex="-1">Apply to <em>Zenith Council</em></h1>
+    <p class="lead">It takes two minutes. We read every application personally and message you if it’s a fit.</p>
+
+    <span class="k sec">I · You</span>
+    <div class="f" data-req>
+      <label for="q-name">Full name</label>
+      <input id="q-name" name="Full name" type="text" autocomplete="name">
+      <p class="err">Add your name.</p>
+    </div>
+    <div class="f" data-req>
+      <label for="q-email">Email</label>
+      <input id="q-email" name="Email" type="email" autocomplete="email" inputmode="email">
+      <p class="err">Add a valid email.</p>
+    </div>
+    <div class="f" data-req>
+      <label for="q-phone">WhatsApp number</label>
+      <p class="hint">With country code, for example +39 333 123 4567.</p>
+      <input id="q-phone" name="WhatsApp" type="tel" autocomplete="tel" inputmode="tel">
+      <p class="err">Add a number we can reach you on.</p>
+    </div>
+    <div class="f">
+      <label for="q-ig">Instagram <span class="opt-tag">Optional</span></label>
+      <input id="q-ig" name="Instagram" type="text" autocomplete="off" autocapitalize="off" placeholder="@">
+    </div>
+    <div class="f" data-req>
+      <label for="q-city">Where are you based?</label>
+      <input id="q-city" name="Based in" type="text" autocomplete="address-level2" placeholder="City, country">
+      <p class="err">Add your city and country.</p>
+    </div>
+    <div class="nav solo"><button type="button" class="btn next">Continue <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M2 6h8M7 3l3 3-3 3"/></svg></button></div>
+  </section>
+
+  <section class="step" data-step="2">
+    <span class="k">II · Business</span>
+    <h2 tabindex="-1">What you <em>build</em></h2>
+    <div class="f" data-req>
+      <label for="q-what">What do you do, in one sentence?</label>
+      <p class="hint">For example: “I run a 7-figure e-commerce brand” or “I sell B2B consulting at $10k+.”</p>
+      <textarea id="q-what" name="What they do" rows="1"></textarea>
+      <p class="err">Tell us what you do.</p>
+    </div>
+    <div class="f">
+      <label for="q-site">Website or company link <span class="opt-tag">Optional</span></label>
+      <input id="q-site" name="Website" type="url" inputmode="url" autocapitalize="off" placeholder="https://">
+    </div>
+    <fieldset class="f" data-req>
+      <legend>Monthly revenue</legend>
+      <p class="hint">Members sit in one of three groups by revenue.</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="Monthly revenue" value="Under $10k"><span>Under $10k</span></label>
+        <label class="opt"><input type="radio" name="Monthly revenue" value="$10k–$50k"><span>$10k–$50k</span><em class="tier bronze">Bronze</em></label>
+        <label class="opt"><input type="radio" name="Monthly revenue" value="$50k–$100k"><span>$50k–$100k</span><em class="tier silver">Silver</em></label>
+        <label class="opt"><input type="radio" name="Monthly revenue" value="$100k+"><span>$100k+</span><em class="tier gold">Gold</em></label>
+        <label class="opt"><input type="radio" name="Monthly revenue" value="Prefers to share on the call"><span>I’d rather share this on the call</span></label>
+      </div>
+      <p class="err">Choose one.</p>
+    </fieldset>
+    <p class="notice">By applying, you agree that Zenith Council can contact you about your application. Your answers are used only to review it.</p>
+    <p class="send-err" id="send-err" role="alert" hidden>Your application didn’t send. Check your connection and try again, or message us on Instagram at <a href="https://instagram.com/zenithcouncil" target="_blank" rel="noopener">@zenithcouncil</a>.</p>
+    <div class="nav"><button type="button" class="back">Back</button><button type="submit" class="btn" id="submit">Submit application</button></div>
+  </section>
+
+  <!-- Done -->
+  <section class="step" data-step="3">
+    <span class="k">Application received</span>
+    <h2 tabindex="-1">Thank you<span id="done-name"></span>.</h2>
+    <p class="lead">We read every application personally. If it’s a fit, we’ll message you.</p>
+    <a class="tlink" href="./">Back to Zenith Council <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5"/></svg></a>
+  </section>
+</form>
+</main>
+
+<script>
+(function(){
+  // Paste your Google Apps Script web app URL between the quotes:
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxjjrdXw3DZqkPQW1W16MncyQ4jx8QtAVVc4PD7BA-MrkMiSg9BloYEIHnT78omT9uI/exec';
+
+  var form = document.getElementById('app');
+  var steps = [].slice.call(form.querySelectorAll('.step')); // 0: you, 1: business, 2: done
+  var count = document.getElementById('count'), bar = document.getElementById('bar');
+  var KEY = 'zenith-apply-draft', cur = 0;
+
+  function go(n){
+    steps[cur].classList.remove('on');
+    cur = n;
+    steps[cur].classList.add('on');
+    count.textContent = cur < 2 ? 'Step ' + (cur + 1) + ' of 2' : '';
+    bar.style.transform = 'scaleX(' + (cur === 2 ? 1 : (cur + 1) / 2) + ')';
+    window.scrollTo(0, 0);
+    var h = steps[cur].querySelector('h1,h2'); if (h) h.focus({preventScroll: true});
+    steps[cur].querySelectorAll('textarea').forEach(grow);
+  }
+
+  function emailOk(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
+  function check(step){
+    var ok = true, first = null;
+    step.querySelectorAll('[data-req]').forEach(function(f){
+      var ins = f.querySelectorAll('input,textarea'), t = ins[0].type, good;
+      if (t === 'radio') good = [].some.call(ins, function(i){ return i.checked; });
+      else { var v = ins[0].value.trim(); good = v.length > 0 && (t !== 'email' || emailOk(v)); }
+      f.classList.toggle('bad', !good);
+      if (!good && !first) first = ins[0];
+      if (!good) ok = false;
+    });
+    if (first) { first.focus({preventScroll: true}); first.closest('.f').scrollIntoView({behavior: 'smooth', block: 'center'}); }
+    return ok;
+  }
+
+  form.addEventListener('click', function(e){
+    if (e.target.closest('.next')) { if (check(steps[0])) go(1); }
+    else if (e.target.closest('.back')) go(0);
+  });
+  form.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' && cur === 0 && e.target.tagName === 'INPUT') { e.preventDefault(); steps[0].querySelector('.next').click(); }
+  });
+
+  function grow(t){ t.style.height = 'auto'; t.style.height = t.scrollHeight + 'px'; }
+  form.addEventListener('input', function(e){
+    if (e.target.tagName === 'TEXTAREA') grow(e.target);
+    var f = e.target.closest('.f'); if (f) f.classList.remove('bad');
+    save();
+  });
+  form.addEventListener('change', function(e){ var f = e.target.closest('.f'); if (f) f.classList.remove('bad'); save(); });
+
+  // Draft kept in this browser so a reload doesn't lose answers
+  function fields(){ return [].slice.call(form.elements).filter(function(el){ return el.name && el.name !== '_gotcha'; }); }
+  function save(){
+    var d = {};
+    fields().forEach(function(el){ if (el.type === 'radio') { if (el.checked) d[el.name] = el.value; } else d[el.name] = el.value; });
+    try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (err) {}
+  }
+  (function restore(){
+    var d; try { d = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (err) {}
+    if (!d) return;
+    fields().forEach(function(el){
+      if (!(el.name in d)) return;
+      if (el.type === 'radio') el.checked = d[el.name] === el.value; else el.value = d[el.name];
+    });
+  })();
+
+  function group(rev){
+    return ({'$10k–$50k': 'Bronze', '$50k–$100k': 'Silver', '$100k+': 'Gold', 'Under $10k': 'Below the bar'})[rev] || 'Not shared';
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!check(steps[0])) { go(0); check(steps[0]); return; }
+    if (!check(steps[1])) return;
+    var btn = document.getElementById('submit'), errEl = document.getElementById('send-err');
+    errEl.hidden = true;
+
+    var order = [], vals = {};
+    fields().forEach(function(el){
+      if (order.indexOf(el.name) < 0) order.push(el.name);
+      if (el.type === 'radio') { if (el.checked) vals[el.name] = el.value; }
+      else vals[el.name] = el.value.trim();
+    });
+    order.splice(order.indexOf('Monthly revenue') + 1, 0, 'Group');
+    vals['Group'] = group(vals['Monthly revenue']);
+
+    var body = new URLSearchParams();
+    order.forEach(function(k){ body.append(k, vals[k] || ''); });
+    body.append('_fields', order.join('|'));
+    body.append('_gotcha', form.elements._gotcha.value);
+
+    function fail(){ btn.disabled = false; btn.textContent = 'Submit application'; errEl.hidden = false; }
+    if (!ENDPOINT) { fail(); return; }
+    btn.disabled = true; btn.textContent = 'Sending…';
+    fetch(ENDPOINT, {method: 'POST', mode: 'no-cors', body: body})
+      .then(function(){
+        try { localStorage.removeItem(KEY); } catch (err) {}
+        var first = (vals['Full name'] || '').split(/\s+/)[0];
+        document.getElementById('done-name').textContent = first ? ', ' + first : '';
+        go(2);
+      })
+      .catch(fail);
+  });
+})();
+</script>
+</body>
+</html>
